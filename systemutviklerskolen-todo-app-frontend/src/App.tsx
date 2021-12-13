@@ -1,21 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TodoList } from './TodoList';
 import { AddTodoForm } from './AddTodoForm';
 import './App.css';
 
-const initialTodos: Todo[] = [
-  {
-    text: 'Lage presentasjon',
-    complete: true,
-  },
-  {
-    text: 'Fikse app',
-    complete: false,
-  },
-];
-
 function App() {
-  const [todos, setTodos] = useState(initialTodos);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   const toggleTodo: ToggleTodo = (selectedTodo: Todo) => {
     const newTodos = todos.map((todo) => {
@@ -30,9 +19,27 @@ function App() {
     setTodos(newTodos);
   };
 
-  const addTodo: AddTodo = (text: string) => {
-    const newTodo = { text, complete: false };
-    setTodos([...todos, newTodo]);
+  useEffect(() => {
+    fetch(window.location.origin + '/api/todo', {
+      headers: new Headers({'accept': 'application/json'})
+    })
+      .then(response => response.json())
+      .then(response => {
+        setTodos(response);
+      });
+  }, []);
+
+  const addTodo: AddTodo = (task: string) => {
+    const newTodo = { task, id: undefined, complete: false };
+    fetch(window.location.origin + '/api/todo', {
+      method: 'post',
+      body: JSON.stringify(newTodo),
+      headers: new Headers({'content-type': 'application/json'})
+    })
+      .then(response => response.json())
+      .then(response => {
+        setTodos(response);
+      });
   };
 
   return (

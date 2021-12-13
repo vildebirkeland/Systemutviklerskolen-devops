@@ -6,13 +6,16 @@ var services = builder.Services;
 
 // Add services to the container.
 
+var connectionString = Environment.GetEnvironmentVariable("NET_CONNECTION_STRING");
 services.AddControllers();
-services.AddSingleton<TableClient>(new TableClient("", "Sysut"));
+services.AddSingleton<TableClient>(new TableClient(connectionString, "Sysut"));
 services.AddSingleton<TableService>();
 services.AddSpaStaticFiles(options => options.RootPath = "todo-app-frontend");
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+app.UseSpaStaticFiles();
 app.UseSpa(opts => { });
 // Configure the HTTP request pipeline.
 

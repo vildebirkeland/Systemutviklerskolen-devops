@@ -1,9 +1,9 @@
 interface Todo {
   id: string;
-  text: string;
+  task: string;
   complete: boolean;
 }
 
 type ToggleTodo = (selectedTodo: Todo) => void;
 
-type AddTodo = (text: string) => void;
+type AddTodo = (task: string) => void;
