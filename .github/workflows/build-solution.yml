@@ -34,6 +34,10 @@ jobs:
       - name: build solution
         run: dotnet build
         working-directory: systemutviklerskolen-todo-app-backend
+        
+      - name: test build
+        run: dotnet test
+        working-directory: systemutviklerskolen-todo-app-backend
       
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
