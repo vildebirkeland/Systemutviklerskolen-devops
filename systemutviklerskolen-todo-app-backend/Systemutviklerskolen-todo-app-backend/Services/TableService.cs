@@ -3,7 +3,7 @@ using Azure.Data.Tables;
 
 namespace Systemutviklerskolen_todo_app_backend.Services;
 
-public class TableService
+public class TableService : ITableService
 {
     private readonly TableClient _tableClient;
 
@@ -43,7 +43,7 @@ public class TableService
         todo.Id = new Guid(entity.RowKey);
         todo.Done = (string)entity["Done"] == "True";
         todo.Task = (string)entity["Task"];
-       
+
         return todo;
     }
 }

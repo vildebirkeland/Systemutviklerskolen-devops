@@ -9,7 +9,7 @@ var services = builder.Services;
 var connectionString = Environment.GetEnvironmentVariable("NET_CONNECTION_STRING");
 services.AddControllers();
 services.AddSingleton<TableClient>(new TableClient(connectionString, "Sysut"));
-services.AddSingleton<TableService>();
+services.AddSingleton<ITableService, TableService>();
 services.AddSpaStaticFiles(options => options.RootPath = "todo-app-frontend");
 
 var app = builder.Build();

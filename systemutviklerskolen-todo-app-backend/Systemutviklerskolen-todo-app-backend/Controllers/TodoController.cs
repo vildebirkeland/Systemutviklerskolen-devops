@@ -7,8 +7,8 @@ namespace Systemutviklerskolen_todo_app_backend.Controllers
     [Route("api/[controller]")]
     public class TodoController : ControllerBase
     {
-        private readonly TableService _tableService;
-        public TodoController(TableService tableService)
+        private readonly ITableService _tableService;
+        public TodoController(ITableService tableService)
         {
             _tableService = tableService;
         }
