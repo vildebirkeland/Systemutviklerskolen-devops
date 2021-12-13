@@ -9,6 +9,17 @@ namespace systemutviklerskolen_todo_app_backend_tests
 {
     public class TodoControllerTests
     {
-        
+        [Test]
+        public void TodoController_Index_CallsGetAllRows() 
+        {
+            var mock = new Mock<ITableService>();
+            mock.Setup(x => x.GetAllRows()).Returns(new List<Todo> { new Todo() });
+
+            var target = new TodoController(mock.Object);
+
+            target.Index();
+
+            mock.Verify(x => x.GetAllRows(), Times.Once);
+        }
     }
 }
