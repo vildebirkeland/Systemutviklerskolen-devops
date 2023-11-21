@@ -24,10 +24,23 @@ jobs:
       run: dotnet restore
       working-directory: systemutviklerskolen-todo-app-backend/
     
-    - name: Build
+    - name: Build backend
       run: dotnet build --no-restore
       working-directory: systemutviklerskolen-todo-app-backend/
     
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: systemutviklerskolen-todo-app-backend/
+
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+        
+    - name: Run NPM install
+      run: npm install
+      working-directory: systemutviklerskolen-todo-app-frontend/
+    
+    - name: Build frontend
+      run: npm run build
+      working-directory: systemutviklerskolen-todo-app-frontend/
